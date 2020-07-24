@@ -49,13 +49,13 @@ import org.nova.html.ext.HtmlUtils;
 import org.nova.html.tags.div;
 import org.nova.html.tags.script;
 import org.nova.html.ext.ModalBackground;
-import org.nova.html.remoting.Inputs;
-import org.nova.html.remoting1.CallBuilder;
+import org.nova.html.remote.Inputs;
+import org.nova.html.remoting.CallBuilder;
 import org.nova.http.client.PathAndQuery;
 
 import com.amazonaws.services.kinesisanalytics.model.Input;
 
-public class RemotingEditBox extends StyleComponent<RemotingEditBox>   
+public class RemoteEditBox extends StyleComponent<RemoteEditBox>   
 {
     final private QuotationMark mark;
     final private Inputs inputs;
@@ -108,7 +108,7 @@ public class RemotingEditBox extends StyleComponent<RemotingEditBox>
 //
 //
 //	}
-    public RemotingEditBox(QuotationMark mark,StyleComponent<?> valueElement,InputElement<?> inputElement,Inputs inputs)
+    public RemoteEditBox(QuotationMark mark,StyleComponent<?> valueElement,InputElement<?> inputElement,Inputs inputs)
     {
         super("div",null);
         this.d(Display.flex);
@@ -122,40 +122,40 @@ public class RemotingEditBox extends StyleComponent<RemotingEditBox>
         this.valueElement=valueElement;
     
     }
-    public RemotingEditBox(QuotationMark mark,StyleComponent<?> valueElement,InputElement<?> inputElement)
+    public RemoteEditBox(QuotationMark mark,StyleComponent<?> valueElement,InputElement<?> inputElement)
     {
         this(mark,valueElement,inputElement,new Inputs());
     }
-    public RemotingEditBox(StyleComponent<?> valueElement,InputElement<?> inputElement)
+    public RemoteEditBox(StyleComponent<?> valueElement,InputElement<?> inputElement)
     {
         this(QuotationMark.DOUBLE,valueElement,inputElement,new Inputs());
     }
-    public RemotingEditBox(String value,InputElement<?> inputElement)
+    public RemoteEditBox(String value,InputElement<?> inputElement)
     {
         this(QuotationMark.DOUBLE,new Item().m(2).text(TextStyle.truncate).addInner(value),inputElement,new Inputs());
     }
 
-    public RemotingEditBox modalBackground(ModalBackground background)
+    public RemoteEditBox modalBackground(ModalBackground background)
     {
         this.background=background;
         return this;
     }
-    public RemotingEditBox acceptButton(GlobalEventTagElement<?> acceptButton)
+    public RemoteEditBox acceptButton(GlobalEventTagElement<?> acceptButton)
     {
         this.acceptButton=acceptButton;
         return this;
     }
-    public RemotingEditBox editButton(GlobalEventTagElement<?> editButton)
+    public RemoteEditBox editButton(GlobalEventTagElement<?> editButton)
     {
         this.editButton=editButton;
         return this;
     }
-    public RemotingEditBox dismissButton(GlobalEventTagElement<?> dismissButton)
+    public RemoteEditBox dismissButton(GlobalEventTagElement<?> dismissButton)
     {
         this.acceptButton=dismissButton;
         return this;
     }
-    public RemotingEditBox placement(Placement placement)
+    public RemoteEditBox placement(Placement placement)
     {
         this.placement=placement;
         return this;
@@ -199,7 +199,7 @@ public class RemotingEditBox extends StyleComponent<RemotingEditBox>
         inputGroup.addInner(acceptButton);
         inputGroup.addInner(dismissButton);
 
-        editButton.onclick(HtmlUtils.js_call("Remoting.openEditBox"
+        editButton.onclick(HtmlUtils.js_call("nova.remote.openEditBox"
                 , template
                 ,background!=null?background.id():null
                 ,id()

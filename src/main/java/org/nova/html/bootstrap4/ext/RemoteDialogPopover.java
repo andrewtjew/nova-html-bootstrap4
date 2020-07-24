@@ -54,14 +54,14 @@ import org.nova.html.ext.Head;
 import org.nova.html.ext.HtmlUtils;
 import org.nova.html.tags.script;
 import org.nova.html.ext.ModalBackground;
-import org.nova.html.remoting.Inputs;
-import org.nova.html.remoting1.CallBuilder;
+import org.nova.html.remote.Inputs;
+import org.nova.html.remoting.CallBuilder;
 import org.nova.http.client.PathAndQuery;
 
 import com.amazonaws.services.xray.model.BackendConnectionErrors;
 import com.sun.jna.platform.win32.AccCtrl;
 
-public class RemotingDialogPopover
+public class RemoteDialogPopover
 {
     final private QuotationMark mark;
     final private GlobalEventTagElement<?> toggler;
@@ -72,57 +72,57 @@ public class RemotingDialogPopover
     private GlobalEventTagElement<?> dismissButton;
     private Placement placement;
     
-	public RemotingDialogPopover(QuotationMark mark,GlobalEventTagElement<?> toggler,Inputs inputs)
+	public RemoteDialogPopover(QuotationMark mark,GlobalEventTagElement<?> toggler,Inputs inputs)
 	{
 	    this.mark=mark;
 	    this.toggler=toggler;
 	    this.placement=Placement.right;
 	    this.inputs=inputs;
 	}
-    public RemotingDialogPopover(QuotationMark mark,GlobalEventTagElement<?> toggler)
+    public RemoteDialogPopover(QuotationMark mark,GlobalEventTagElement<?> toggler)
     {
         this(mark,toggler,new Inputs());
     }
-    public RemotingDialogPopover(GlobalEventTagElement<?> toggler,Inputs inputs)
+    public RemoteDialogPopover(GlobalEventTagElement<?> toggler,Inputs inputs)
     {
         this(QuotationMark.DOUBLE,toggler,inputs);
     }
-    public RemotingDialogPopover(GlobalEventTagElement<?> toggler)
+    public RemoteDialogPopover(GlobalEventTagElement<?> toggler)
     {
         this(QuotationMark.DOUBLE,toggler,new Inputs());
     }
 	
-    public RemotingDialogPopover content(Element content)
+    public RemoteDialogPopover content(Element content)
     {
         this.content=content;
         return this;
     }
-    public RemotingDialogPopover content(InputElement<?> content)
+    public RemoteDialogPopover content(InputElement<?> content)
     {
         this.content=content;
         this.inputs.add(content);
         return this;
     }
-    public RemotingDialogPopover content(String label)
+    public RemoteDialogPopover content(String label)
     {
         return content(new Item().mr(2).align_self(AlignSelf.center).addInner(label));
     }
-    public RemotingDialogPopover modalBackground(ModalBackground background)
+    public RemoteDialogPopover modalBackground(ModalBackground background)
     {
         this.background=background;
         return this;
     }
-    public RemotingDialogPopover acceptButton(GlobalEventTagElement<?> acceptButton)
+    public RemoteDialogPopover acceptButton(GlobalEventTagElement<?> acceptButton)
     {
         this.acceptButton=acceptButton;
         return this;
     }
-    public RemotingDialogPopover dismissButton(GlobalEventTagElement<?> dismissButton)
+    public RemoteDialogPopover dismissButton(GlobalEventTagElement<?> dismissButton)
     {
         this.acceptButton=dismissButton;
         return this;
     }
-    public RemotingDialogPopover placement(Placement placement)
+    public RemoteDialogPopover placement(Placement placement)
     {
         this.placement=placement;
         return this;
@@ -153,7 +153,7 @@ public class RemotingDialogPopover
             inputGroup.addInner(dismissButton);
         }
         String t=this.inputs.getContent();
-        toggler.onclick(HtmlUtils.js_call(mark,"Remoting.openDialogPopover"
+        toggler.onclick(HtmlUtils.js_call(mark,"nova.remote.openDialogPopover"
                 ,template
                 ,background!=null?background.id():null
                 ,toggler.id()
